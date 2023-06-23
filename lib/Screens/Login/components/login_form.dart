@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:porcupine_app/Screens/Chat/chat.dart';
 import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
+import 'package:porcupine_app/Screens/Survey/survery2.dart';
 import 'package:porcupine_app/Screens/Survey/survey.dart';
 import 'package:porcupine_app/home_page.dart';
 
@@ -54,7 +55,18 @@ class LoginForm extends StatelessWidget {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const BottomNavigationBarExampleApp(
+                        firstTab: GetTested(),
+                      );
+                    },
+                  ),
+                );
+              },
               child: Text(
                 "Login".toUpperCase(),
               ),
@@ -67,8 +79,8 @@ class LoginForm extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const BottomNavigationBarExampleApp(
-                      firstTab: GetTested(),
+                    return BottomNavigationBarExampleApp(
+                      firstTab: MySurvey2(),
                     );
                   },
                 ),

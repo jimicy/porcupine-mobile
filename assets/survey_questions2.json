@@ -1,0 +1,177 @@
+{
+  "id": "123",
+  "type": "navigable",
+  "steps": [
+    {
+      "stepIdentifier": {
+        "id": "1"
+      },
+      "type": "intro",
+      "title": "Welcome!",
+      "text": "Sign up to Porcupine, your source for sexual health information and services.",
+      "buttonText": "Start"
+    },
+    {
+      "stepIdentifier": {
+        "id": "2"
+      },
+      "type": "question",
+      "title": "What is your email address?",
+      "answerFormat": {
+        "type": "text",
+        "hint": "Email address"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "3"
+      },
+      "type": "question",
+      "title": "How old are you?",
+      "answerFormat": {
+        "type": "integer",
+        "hint": "Please enter your age"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "4"
+      },
+      "type": "question",
+      "title": "What is your biological sex?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Male",
+            "value": "Male"
+          },
+          {
+            "text": "Female",
+            "value": "Female"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "5"
+      },
+      "type": "question",
+      "title": "What is your sexual orientation?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Gay",
+            "value": "Gay"
+          },
+          {
+            "text": "Lesbian",
+            "value": "Lesbian"
+          },
+          {
+            "text": "Bisexual",
+            "value": "Bisexual"
+          },
+          {
+            "text": "Pansexual",
+            "value": "Pansexual"
+          },
+          {
+            "text": "Straight/Heterosexual",
+            "value": "Straight/Heterosexual"
+          },
+          {
+            "text": "Queer",
+            "value": "Queer"
+          },
+          {
+            "text": "Still Deciding",
+            "value": "Still Deciding"
+          },
+          {
+            "text": "Asexual",
+            "value": "Asexual"
+          },
+          {
+            "text": "Other",
+            "value": "Other"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "6"
+      },
+      "type": "question",
+      "title": "What’s your mother tongue or first language you are most comfortable speaking?",
+      "answerFormat": {
+        "type": "text",
+        "hint": "preferred language"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "7"
+      },
+      "type": "question",
+      "title": "What is your race?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "American Indian or Alaska Native",
+            "value": "American Indian or Alaska Native"
+          },
+          {
+            "text": "Asian",
+            "value": "Asian"
+          },
+          {
+            "text": "Black or African American",
+            "value": "Black or African American"
+          },
+          {
+            "text": "Native Hawaiian or Other Pacific Islander",
+            "value": "Native Hawaiian or Other Pacific Islander"
+          },
+          {
+            "text": "White",
+            "value": "White"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "8"
+      },
+      "type": "question",
+      "title": "What is your ethnicity?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Hispanic or Latino",
+            "value": "Hispanic or Latino"
+          },
+          {
+            "text": "Not Hispanic or Latino",
+            "value": "Not Hispanic or Latino"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "9"
+      },
+      "type": "completion",
+      "text": "You're all signed up!",
+      "title": "Done!",
+      "buttonText": "Enter"
+    }
+  ]
+}
