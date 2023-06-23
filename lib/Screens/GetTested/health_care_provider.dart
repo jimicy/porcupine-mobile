@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:porcupine_app/Screens/GetTested/book_appointment.dart';
+import 'package:porcupine_app/home_page.dart';
 
 class HealthCareProvider extends StatelessWidget {
   const HealthCareProvider({Key? key}) : super(key: key);
@@ -47,7 +49,18 @@ class HealthCareProvider extends StatelessWidget {
         Center(
           child: ElevatedButton(
             // style: style,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const BottomNavigationBarExampleApp(
+                      firstTab: BookAppointment(),
+                    );
+                  },
+                ),
+              );
+            },
             child: const Text('Book Appointment'),
           ),
         )
