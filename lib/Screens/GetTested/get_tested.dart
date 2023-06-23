@@ -6,25 +6,57 @@ import 'package:porcupine_app/home_page.dart';
 
 import '../../constants.dart';
 
-enum ClincFilter { free, confidential, transit }
+enum ClincFilter { free, confidential, transit, ratings, preferred_language }
 
 Map<ClincFilter, String> ClincFilterNames = {
   ClincFilter.free: 'Free or low cost',
   ClincFilter.confidential: 'Mail-only Self-Testing',
   ClincFilter.transit: 'Public Transit friendly',
+  ClincFilter.ratings: 'Good ratings',
+  ClincFilter.preferred_language: 'Preferred language offered',
 };
 
 Map<ClincFilter, Color> chipToColor = {
   ClincFilter.free: const Color.fromRGBO(255, 184, 184, 1),
   ClincFilter.confidential: const Color.fromRGBO(218, 230, 142, 1),
   ClincFilter.transit: const Color.fromRGBO(181, 215, 239, 1),
+  ClincFilter.ratings: const Color.fromRGBO(169, 163, 184, 1),
+  ClincFilter.preferred_language: const Color.fromRGBO(166, 180, 189, 1),
 };
 
 Map<ClincFilter, Color> chipToSelectedColor = {
   ClincFilter.free: Color.fromRGBO(255, 96, 96, 1),
   ClincFilter.confidential: const Color.fromRGBO(198, 217, 81, 1),
   ClincFilter.transit: const Color.fromRGBO(112, 178, 224, 1),
+  ClincFilter.ratings: const Color.fromRGBO(66, 60, 78, 0.5),
+  ClincFilter.preferred_language: const Color.fromRGBO(60, 73, 82, 0.5),
 };
+
+const List<Map<String, dynamic>> clincs = [
+  {
+    'title': 'Radiant Health Centers',
+    'address1': '17982 Sky Park Circle Suite J',
+    'address2': 'Irvine, California 92614',
+    'phone': '(949) 809-5700',
+    'chips': [ClincFilter.free, ClincFilter.confidential, ClincFilter.transit]
+  },
+  {
+    'title': 'AltaMed Medical GroupCommerce',
+    'address1': '5427 E Whittier Blvd Los Angeles',
+    'address2': 'California 90022',
+    'phone': '(888) 499-9303',
+    'chips': [
+      ClincFilter.free,
+    ]
+  },
+  {
+    'title': 'Together Take Me Home',
+    'address1': '5601 Van Fleet Ave Richmond',
+    'address2': 'California 94804',
+    'phone': '(628) 899-4662',
+    'chips': [ClincFilter.free, ClincFilter.confidential]
+  },
+];
 
 class GetTested extends StatefulWidget {
   const GetTested({super.key});
@@ -52,7 +84,8 @@ class _GetTestedState extends State<GetTested> {
                     child: Text("Find Nearby Provider",
                         style: TextStyle(
                             color: Color.fromRGBO(131, 116, 165, 1),
-                            fontSize: 16, fontWeight: FontWeight.bold))),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold))),
                 Row(
                   children: <Widget>[
                     Flexible(
@@ -140,7 +173,7 @@ class _GetTestedState extends State<GetTested> {
                       ),
                     );
                   },
-                  child: const SizedBox(
+                  child: SizedBox(
                     height: 140,
                     width: 350,
                     child: Center(
@@ -151,7 +184,7 @@ class _GetTestedState extends State<GetTested> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Text(
-                              "Radiant Health Centers",
+                              clincs[index % 3]['title'],
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -159,11 +192,11 @@ class _GetTestedState extends State<GetTested> {
                           const SizedBox(height: 20),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
-                            child: Text("17982 Sky Park Circle, Suite J"),
+                            child: Text(clincs[index % 3]['address1']),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
-                            child: Text("Irvine, California 92614"),
+                            child: Text(clincs[index % 3]['address2']),
                           ),
                           const SizedBox(height: 20),
                           Row(
@@ -174,23 +207,38 @@ class _GetTestedState extends State<GetTested> {
                                     const SizedBox(width: 15),
                                     Icon(Icons.phone),
                                     const SizedBox(width: 10),
-                                    Text("714-454-6955"),
+                                    Text(clincs[index % 3]['phone']),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    CircleAvatar(
-                                      radius: 10,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    CircleAvatar(
-                                      radius: 10,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    CircleAvatar(
-                                      radius: 10,
-                                    ),
-                                    const SizedBox(width: 15),
+                                    clincs[index % 3]['chips']
+                                            .contains(ClincFilter.free)
+                                        ? CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor:
+                                                chipToColor[ClincFilter.free],
+                                          )
+                                        : SizedBox(width: 5),
+                                    SizedBox(width: 5),
+                                    clincs[index % 3]['chips']
+                                            .contains(ClincFilter.confidential)
+                                        ? CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor: chipToColor[
+                                                ClincFilter.confidential],
+                                          )
+                                        : SizedBox(width: 5),
+                                    SizedBox(width: 5),
+                                    clincs[index % 3]['chips']
+                                            .contains(ClincFilter.transit)
+                                        ? CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor: chipToColor[
+                                                ClincFilter.transit],
+                                          )
+                                        : SizedBox(width: 5),
+                                    SizedBox(width: 15),
                                   ],
                                 ),
                               ])
@@ -199,8 +247,7 @@ class _GetTestedState extends State<GetTested> {
                     ),
                   ),
                 ),
-              )
-          );
+              ));
         },
       )),
     ]);
