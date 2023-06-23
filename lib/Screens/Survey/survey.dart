@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
+import 'package:porcupine_app/home_page.dart';
 import 'package:survey_kit/survey_kit.dart';
 
 class MySurvey extends StatefulWidget {
@@ -44,7 +46,16 @@ class _MySurveyState extends State<MySurvey> {
                         }
                       }
 
-                      Navigator.pushNamed(context, '/');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const BottomNavigationBarExampleApp(
+                            firstTab: GetTested(),
+                          );
+                        },
+                      ),
+                    );
                     },
                     task: task,
                     showProgress: true,
