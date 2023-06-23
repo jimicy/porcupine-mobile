@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:porcupine_app/Screens/Survey/survey.dart';
+import 'package:porcupine_app/home_page.dart';
 
 class BookAppointment extends StatelessWidget {
   const BookAppointment({Key? key}) : super(key: key);
@@ -95,7 +97,18 @@ class BookAppointment extends StatelessWidget {
         Center(
           child: ElevatedButton(
             // style: style,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return BottomNavigationBarExampleApp(
+                      firstTab: MySurvey(),
+                    );
+                  },
+                ),
+              );
+            },
             child: const Text('Confirm Appointment'),
           ),
         )

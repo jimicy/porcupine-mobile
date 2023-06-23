@@ -15,6 +15,7 @@ class _MySurveyState extends State<MySurvey> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+        padding: EdgeInsets.only(top: 15),
           color: Colors.white,
           child: Align(
             alignment: Alignment.center,
@@ -126,19 +127,19 @@ class _MySurveyState extends State<MySurvey> {
                       ),
                       textTheme: TextTheme(
                         displayMedium: TextStyle(
-                          fontSize: 28.0,
+                        fontSize: 24.0,
                           color: Colors.black,
                         ),
                         headlineSmall: TextStyle(
-                          fontSize: 24.0,
+                        fontSize: 20.0,
                           color: Colors.black,
                         ),
                         bodyMedium: TextStyle(
-                          fontSize: 18.0,
+                        fontSize: 18.0,
                           color: Colors.black,
                         ),
                         titleMedium: TextStyle(
-                          fontSize: 18.0,
+                        fontSize: 14.0,
                           color: Colors.black,
                         ),
                       ),

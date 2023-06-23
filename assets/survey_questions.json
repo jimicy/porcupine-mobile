@@ -8,48 +8,8 @@
         "id": "7"
       },
       "values": {
-        "Yes": "2",
+        "Yes": "9",
         "No": "8"
-      }
-    },
-    {
-      "type": "direct",
-      "triggerStepIdentifier": {
-        "id": "1"
-      },
-      "destinationStepIdentifier": {
-        "id": "3"
-      }
-    },
-    {
-      "type": "conditional",
-      "triggerStepIdentifier": {
-        "id": "6"
-      },
-      "values": {
-        "Penicillin": "7",
-        "Penicillin,Latex": "7",
-        "Penicillin,Latex,Pet": "11",
-        "Penicillin,Latex,Pet,Pollen": "11",
-        "Penicillin,Pet": "11",
-        "Penicillin,Pet,Pollen": "11",
-        "Penicillin,Pollen": "7",
-        "Latex": "7",
-        "Latex,Pet": "11",
-        "Latex,Pet,Pollen": "11",
-        "Latex,Pollen": "7",
-        "Pet": "11",
-        "Pet,Pollen": "11",
-        "Pollen": "7"
-      }
-    },
-    {
-      "type": "direct",
-      "triggerStepIdentifier": {
-        "id": "11"
-      },
-      "destinationStepIdentifier": {
-        "id": "7"
       }
     }
   ],
@@ -59,20 +19,19 @@
         "id": "1"
       },
       "type": "intro",
-      "title": "Welcome to the\nQuickBird Studios\nHealth Survey",
-      "text": "Get ready for a bunch of super random questions!",
-      "buttonText": "Let's go!"
+      "title": "Your appointment has been booked!",
+      "text": "We will ask a couple of pre-visit questions in order to better understand the situation and provide more effective STI prevention and intervention from the national level in the future. Remember, we value your privacy seriously, any personal information that you have provided is confidential.",
+      "buttonText": "Start"
     },
     {
       "stepIdentifier": {
         "id": "2"
       },
       "type": "question",
-      "title": "How old are you?",
+      "title": "What is your zip code?",
       "answerFormat": {
         "type": "integer",
-        "defaultValue": 25,
-        "hint": "Please enter your age"
+        "hint": "Please enter your zip code"
       }
     },
     {
@@ -80,13 +39,10 @@
         "id": "3"
       },
       "type": "question",
-      "title": "Medication?",
-      "text": "Are you using any medication",
+      "title": "How old are you?",
       "answerFormat": {
-        "type": "bool",
-        "positiveAnswer": "Yes",
-        "negativeAnswer": "No",
-        "result": "POSITIVE"
+        "type": "integer",
+        "hint": "Please enter your age"
       }
     },
     {
@@ -94,12 +50,10 @@
         "id": "4"
       },
       "type": "question",
-      "title": "Tell us about you",
-      "text": "Tell us about yourself and why you want to improve your health.",
+      "title": "Preferred phone number to receive appointment updates and test results",
       "answerFormat": {
         "type": "text",
-        "maxLines": 5,
-        "validationRegEx": "^(?!\\s*\\$).+"
+        "hint": "phone number"
       }
     },
     {
@@ -107,15 +61,35 @@
         "id": "5"
       },
       "type": "question",
-      "title": "Select your body type",
+      "title": "What is the main reason you chose this clinic for care?",
       "answerFormat": {
-        "type": "scale",
-        "step": 1,
-        "minimumValue": 1,
-        "maximumValue": 5,
-        "defaultValue": 3,
-        "minimumValueDescription": "1",
-        "maximumValueDescription": "5"
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Could walk in or get same day appointment",
+            "value": "Could walk in or get same day appointment"
+          },
+          {
+            "text": "Cost",
+            "value": "Cost"
+          },
+          {
+            "text": "Privacy concerns",
+            "value": "Privacy concerns"
+          },
+          {
+            "text": "Good reviews and reputations",
+            "value": "Good reviews and reputations"
+          },
+          {
+            "text": "Extra care services provided",
+            "value": "Extra care services provided"
+          },
+          {
+            "text": "Have doctors that speak my language or share race/ethnicity",
+            "value": "Have doctors that speak my language or share race/ethnicity"
+          }
+        ]
       }
     },
     {
@@ -123,25 +97,33 @@
         "id": "6"
       },
       "type": "question",
-      "title": "Known allergies",
+      "title": "Do you have health insurance (choose only one)?",
       "answerFormat": {
-        "type": "multiple",
+        "type": "single",
         "textChoices": [
           {
-            "text": "Penicillin",
-            "value": "Penicillin"
+            "text": "Yes, parents’ insurance plan",
+            "value": "Yes, parents’ insurance plan"
           },
           {
-            "text": "Latex",
-            "value": "Latex"
+            "text": "Yes, government (Medicaid, Medicare, etc)",
+            "value": "Yes, government (Medicaid, Medicare, etc)"
           },
           {
-            "text": "Pet",
-            "value": "Pet"
+            "text": "Yes, private insurance (through employer)",
+            "value": "Yes, private insurance (through employer)"
           },
           {
-            "text": "Pollen",
-            "value": "Pollen"
+            "text": "Yes, private insurance (purchased by yourself/healthcare.gov exchange)",
+            "value": "Yes, private insurance (purchased by yourself/healthcare.gov exchange)"
+          },
+          {
+            "text": "No coverage of any type",
+            "value": "No coverage of any type"
+          },
+          {
+            "text": "Don’t know",
+            "value": "Don’t know"
           }
         ]
       }
@@ -151,20 +133,12 @@
         "id": "7"
       },
       "type": "question",
-      "title": "Done?",
-      "text": "We are done, do you mind to tell us more about yourself?",
+      "title": "Would you be willing to use your health insurance for this visit?",
       "answerFormat": {
-        "type": "single",
-        "textChoices": [
-          {
-            "text": "Yes",
-            "value": "Yes"
-          },
-          {
-            "text": "No",
-            "value": "No"
-          }
-        ]
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
       }
     },
     {
@@ -172,13 +146,31 @@
         "id": "8"
       },
       "type": "question",
-      "title": "When did you wake up?",
+      "title": "If No, why not (choose all that apply)?",
       "answerFormat": {
-        "type": "time",
-        "defaultValue": {
-          "hour": 12,
-          "minute": 0
-        }
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "I do not want my insurance company to know",
+            "value": "I do not want my insurance company to know"
+          },
+          {
+            "text": "Insurance company might send records home",
+            "value": "Insurance company might send records home"
+          },
+          {
+            "text": "Usual doctor might send records home",
+            "value": "Usual doctor might send records home"
+          },
+          {
+            "text": "I cannot afford to pay the co-pay or deductible",
+            "value": "I cannot afford to pay the co-pay or deductible"
+          },
+          {
+            "text": "Insurance company might send records home",
+            "value": "Insurance company might send records home"
+          }
+        ]
       }
     },
     {
@@ -186,70 +178,25 @@
         "id": "9"
       },
       "type": "question",
-      "title": "When was your last holiday?",
-      "answerFormat": {
-        "type": "date",
-        "minDate": "2015-06-25T04:08:16Z",
-        "maxDate": "2025-06-25T04:08:16Z",
-        "defaultDate": "2021-06-25T04:08:16Z"
-      }
-    },
-    {
-      "stepIdentifier": {
-        "id": "12"
-      },
-      "type": "question",
-      "title": "Known allergies",
+      "title": "Do you any symptoms below?",
       "answerFormat": {
         "type": "multiple",
-        "otherField": true,
         "textChoices": [
           {
-            "text": "Penicillin",
-            "value": "Penicillin"
+            "text": "Discharge/drip/abnormal blood spotting from vagina, penis or anus",
+            "value": "Discharge/drip/abnormal blood spotting from vagina, penis or anus"
           },
           {
-            "text": "Latex",
-            "value": "Latex"
+            "text": "Sore(s) or a rash on penis, vagina or anus or body",
+            "value": "Sore(s) or a rash on penis, vagina or anus or body"
           },
           {
-            "text": "Pet",
-            "value": "Pet"
+            "text": "Pain/discomfort when passing urine (peeing)",
+            "value": "Pain/discomfort when passing urine (peeing)"
           },
           {
-            "text": "Pollen",
-            "value": "Pollen"
-          }
-        ]
-      }
-    },
-    {
-      "stepIdentifier": {
-        "id": "13"
-      },
-      "type": "question",
-      "title": "Medicines",
-      "answerFormat": {
-        "type": "multiple_auto_complete",
-        "otherField": true,
-        "textChoices": [
-          {
-            "text": "Penicillin",
-            "value": "Penicillin"
-          },
-          {
-            "text": "Latex",
-            "value": "Latex"
-          }
-        ],
-        "suggestions": [
-          {
-            "text": "Pet",
-            "value": "Pet"
-          },
-          {
-            "text": "Pollen",
-            "value": "Pollen"
+            "text": "Pain/discomfort in lower tummy, anus or genital area?",
+            "value": "Pain/discomfort in lower tummy, anus or genital area?"
           }
         ]
       }
@@ -257,6 +204,190 @@
     {
       "stepIdentifier": {
         "id": "10"
+      },
+      "type": "question",
+      "title": "When was your last STI check?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Never",
+            "value": "Discharge/drip/abnormal blood spotting from vagina, penis or anus"
+          },
+          {
+            "text": "3 months",
+            "value": "3 months"
+          },
+          {
+            "text": "6 months",
+            "value": "6 months"
+          },
+          {
+            "text": "1 year",
+            "value": "1 year"
+          },
+          {
+            "text": "over 1 year",
+            "value": "over 1 year"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "11"
+      },
+      "type": "question",
+      "title": "Number of partners since your last STI check",
+      "answerFormat": {
+        "type": "integer",
+        "hint": "Please enter a number"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "12"
+      },
+      "type": "question",
+      "title": "Has a sexual partner told you they have a sexually transmitted infection (STI)?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "13"
+      },
+      "type": "question",
+      "title": "Do you use condoms with casual partners?",
+      "answerFormat": {
+        "type": "single",
+        "textChoices": [
+          {
+            "text": "Always",
+            "value": "Always"
+          },
+          {
+            "text": "Sometimes",
+            "value": "Sometimes"
+          },
+          {
+            "text": "Never",
+            "value": "Never"
+          }
+        ]
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "14"
+      },
+      "type": "question",
+      "title": "Are you taking PrEP (HIV prevention drug)?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "15"
+      },
+      "type": "question",
+      "title": "Have you ever given oral sex?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "16"
+      },
+      "type": "question",
+      "title": "Have you ever received anal sex?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "17"
+      },
+      "type": "question",
+      "text": "Have you ever used needles to inject drugs or had a tattoo from an unlicensed source?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "18"
+      },
+      "type": "question",
+      "text": "Has a previous partner ever injected drugs or had a tattoo from an unlicensed source?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "19"
+      },
+      "type": "question",
+      "text": "Have you ever had a sexual encounter against your wishes or sexual abuse?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "20"
+      },
+      "type": "question",
+      "text": "Have you experienced domestic violence (psychological/sexual/physical)?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "21"
+      },
+      "type": "question",
+      "text": "If you have answered yes, would you like us to contact you to provide support?",
+      "answerFormat": {
+        "type": "bool",
+        "positiveAnswer": "Yes",
+        "negativeAnswer": "No",
+        "result": "POSITIVE"
+      }
+    },
+    {
+      "stepIdentifier": {
+        "id": "22"
       },
       "type": "completion",
       "text": "Thanks for taking the survey, we will contact you soon!",
