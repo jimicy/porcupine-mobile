@@ -1,6 +1,8 @@
 // Copyright 2019 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 import 'package:flutter/material.dart';
+import 'package:porcupine_app/Screens/GetTested/health_care_provider.dart';
+import 'package:porcupine_app/home_page.dart';
 
 import '../../constants.dart';
 
@@ -126,7 +128,18 @@ class _GetTestedState extends State<GetTested> {
                 ),
                 child: InkWell(
                   splashColor: Colors.white,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const BottomNavigationBarExampleApp(
+                            firstTab: HealthCareProvider(),
+                          );
+                        },
+                      ),
+                    );
+                  },
                   child: const SizedBox(
                     height: 140,
                     width: 350,

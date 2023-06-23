@@ -13,8 +13,7 @@ class MySurvey extends StatefulWidget {
 class _MySurveyState extends State<MySurvey> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         body: Container(
           color: Colors.white,
           child: Align(
@@ -163,7 +162,6 @@ class _MySurveyState extends State<MySurvey> {
                 }
                 return CircularProgressIndicator.adaptive();
               },
-            ),
           ),
         ),
       ),

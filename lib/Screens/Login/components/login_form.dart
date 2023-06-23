@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:porcupine_app/Screens/Chat/chat.dart';
+import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
+import 'package:porcupine_app/Screens/Survey/survey.dart';
 import 'package:porcupine_app/home_page.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -65,7 +67,9 @@ class LoginForm extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return BottomNavigationBarExampleApp();
+                    return const BottomNavigationBarExampleApp(
+                      firstTab: GetTested(),
+                    );
                   },
                 ),
               );

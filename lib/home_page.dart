@@ -7,18 +7,18 @@ import 'Screens/GetTested/get_tested.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 class BottomNavigationBarExampleApp extends StatelessWidget {
-  const BottomNavigationBarExampleApp({super.key});
+  const BottomNavigationBarExampleApp({super.key, required this.firstTab});
+  final Widget firstTab;
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: BottomNavigationBarExample(),
-    );
+    return BottomNavigationBarExample(firstTab: firstTab);
   }
 }
 
 class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+  const BottomNavigationBarExample({super.key, required this.firstTab});
+  final Widget firstTab;
 
   @override
   State<BottomNavigationBarExample> createState() =>
@@ -30,11 +30,6 @@ class _BottomNavigationBarExampleState
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    GetTested(),
-    ChatPage(),
-    LoginScreen(),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,10 +39,21 @@ class _BottomNavigationBarExampleState
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgetOptions = <Widget>[
+      widget.firstTab,
+      ChatPage(),
+      LoginScreen(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 234, 232, 232),
           elevation: 0,
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back,
+                color: Color.fromRGBO(131, 116, 165, 1)),
+            onPressed: () => Navigator.of(context).pop(),
+          ), 
           actions: [
             IconButton(
               onPressed: () {},
