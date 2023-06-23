@@ -4,11 +4,24 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 
-enum ExerciseFilter { free, confidential }
+enum ClincFilter { free, confidential, transit }
 
-Map<ExerciseFilter, String> exerciseFilterNames = {
-  ExerciseFilter.free: 'Free or low cost',
-  ExerciseFilter.confidential: 'Mail-only Self-Testing',
+Map<ClincFilter, String> ClincFilterNames = {
+  ClincFilter.free: 'Free or low cost',
+  ClincFilter.confidential: 'Mail-only Self-Testing',
+  ClincFilter.transit: 'Public Transit friendly',
+};
+
+Map<ClincFilter, Color> chipToColor = {
+  ClincFilter.free: const Color.fromRGBO(255, 184, 184, 1),
+  ClincFilter.confidential: const Color.fromRGBO(218, 230, 142, 1),
+  ClincFilter.transit: const Color.fromRGBO(181, 215, 239, 1),
+};
+
+Map<ClincFilter, Color> chipToSelectedColor = {
+  ClincFilter.free: Color.fromRGBO(255, 96, 96, 1),
+  ClincFilter.confidential: const Color.fromRGBO(198, 217, 81, 1),
+  ClincFilter.transit: const Color.fromRGBO(112, 178, 224, 1),
 };
 
 class GetTested extends StatefulWidget {
@@ -19,7 +32,7 @@ class GetTested extends StatefulWidget {
 }
 
 class _GetTestedState extends State<GetTested> {
-  Set<ExerciseFilter> filters = <ExerciseFilter>{};
+  Set<ClincFilter> filters = <ClincFilter>{};
 
   @override
   Widget build(BuildContext context) {
@@ -63,24 +76,30 @@ class _GetTestedState extends State<GetTested> {
                     ),
                   ],
                 ),
-                Wrap(
-                  spacing: 5.0,
-                  children:
-                      ExerciseFilter.values.map((ExerciseFilter exercise) {
-                    return FilterChip(
-                      label: Text(exerciseFilterNames[exercise] ?? ''),
-                      selected: filters.contains(exercise),
-                      onSelected: (bool selected) {
-                        setState(() {
-                          if (selected) {
-                            filters.add(exercise);
-                          } else {
-                            filters.remove(exercise);
-                          }
-                        });
-                      },
-                    );
-                  }).toList(),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: [
+                    Wrap(
+                      spacing: 5.0,
+                      children: ClincFilter.values.map((ClincFilter filter) {
+                        return FilterChip(
+                          label: Text(ClincFilterNames[filter] ?? ''),
+                          backgroundColor: chipToColor[filter],
+                          selectedColor: chipToSelectedColor[filter],
+                          selected: filters.contains(filter),
+                          onSelected: (bool selected) {
+                            setState(() {
+                              if (selected) {
+                                filters.add(filter);
+                              } else {
+                                filters.remove(filter);
+                              }
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ]),
                 ),
               ],
             )),
@@ -89,14 +108,73 @@ class _GetTestedState extends State<GetTested> {
           child: ListView.builder(
         itemCount: 20,
         itemBuilder: (context, index) {
-          return ListTile(
-            leading: ExcludeSemantics(
-              child: CircleAvatar(child: Text('$index')),
-            ),
-            title: const Text(
-              'List item',
-            ),
-            subtitle: const Text("Subtitle"),
+          return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shadowColor: Colors.blue,
+                color: Color.fromRGBO(201, 224, 240, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: InkWell(
+                  splashColor: Colors.white,
+                  onTap: () {},
+                  child: const SizedBox(
+                    height: 140,
+                    width: 350,
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text("Radiant Health Centers"),
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text("17982 Sky Park Circle, Suite J"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text("Irvine, California 92614"),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 15),
+                                    Icon(Icons.phone),
+                                    const SizedBox(width: 10),
+                                    Text("714-454-6955"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    CircleAvatar(
+                                      radius: 10,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    CircleAvatar(
+                                      radius: 10,
+                                    ),
+                                    const SizedBox(width: 15),
+                                  ],
+                                ),
+                              ])
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
           );
         },
       )),
