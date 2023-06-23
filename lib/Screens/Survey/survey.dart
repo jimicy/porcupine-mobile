@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
 import 'package:porcupine_app/home_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:survey_kit/survey_kit.dart';
 
 class MySurvey extends StatefulWidget {
@@ -16,35 +17,61 @@ class _MySurveyState extends State<MySurvey> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Container(
         padding: EdgeInsets.only(top: 15),
-          color: Colors.white,
-          child: Align(
-            alignment: Alignment.center,
-            child: FutureBuilder<Task>(
-              future: getJsonTask(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData &&
-                    snapshot.data != null) {
-                  final task = snapshot.data!;
-                  return SurveyKit(
-                    onResult: (SurveyResult result) async {
-                      print(result.finishReason);
-                      final jsonResult = result.results;
-                      // print the json-formatted results
-                      debugPrint(jsonEncode(jsonResult));
+        color: Colors.white,
+        child: Align(
+          alignment: Alignment.center,
+          child: FutureBuilder<Task>(
+            future: getJsonTask(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData &&
+                  snapshot.data != null) {
+                final task = snapshot.data!;
+                return SurveyKit(
+                  onResult: (SurveyResult result) async {
+                    print(result.finishReason);
+                    final jsonResult = result.results;
+                    // print the json-formatted results
+                    // debugPrint(jsonEncode(jsonResult));
 
-                      for (var stepResult in result.results) {
-                        for (var questionResult in stepResult.results) {
-                          // Here are your question results
-                          print({
-                            'id': questionResult.id?.id,
-                            'valueIdentifier': questionResult.valueIdentifier,
-                            'result': questionResult.result,
+                    final List<Map<String, dynamic>> insertedSurvey =
+                        await Supabase.instance.client
+                            .from('surveys')
+                            .insert({}).select('id');
+                    final surveyId = insertedSurvey[0]['id'];
+
+                    // Get survey answers
+                    Map<String, dynamic> answers = {};
+                    for (var stepResult in result.results) {
+                      for (var questionResult in stepResult.results) {
+                        if (questionResult.id?.id != "1" &&
+                            questionResult.id?.id != "22") {
+                          answers[questionResult.id?.id ?? ''] =
+                              questionResult.valueIdentifier;
+
+                          await Supabase.instance.client
+                              .from('survey_answers')
+                              .insert({
+                            'survey_id': surveyId,
+                            'question_id': questionResult.id?.id,
+                            'value': questionResult.valueIdentifier
                           });
                         }
+                        // Here are your question results
+                        // print({
+                        //   'id': questionResult.id?.id,
+                        //   'valueIdentifier': questionResult.valueIdentifier,
+                        //   'result': questionResult.result,
+                        // });
                       }
+                    }
+
+                    await Supabase.instance.client.from('surveys').upsert({
+                      'id': surveyId,
+                      'survey_answers': jsonEncode(answers)
+                    });
 
                     Navigator.push(
                       context,
@@ -56,124 +83,124 @@ class _MySurveyState extends State<MySurvey> {
                         },
                       ),
                     );
-                    },
-                    task: task,
-                    showProgress: true,
-                    localizations: {
-                      'cancel': 'Cancel',
-                      'next': 'Next',
-                    },
-                    themeData: Theme.of(context).copyWith(
-                      primaryColor: Colors.cyan,
-                      appBarTheme: const AppBarTheme(
-                        color: Colors.white,
-                        iconTheme: IconThemeData(
-                          color: Colors.cyan,
-                        ),
-                        titleTextStyle: TextStyle(
-                          color: Colors.cyan,
-                        ),
-                      ),
-                      iconTheme: const IconThemeData(
+                  },
+                  task: task,
+                  showProgress: true,
+                  localizations: {
+                    'cancel': 'Cancel',
+                    'next': 'Next',
+                  },
+                  themeData: Theme.of(context).copyWith(
+                    primaryColor: Colors.cyan,
+                    appBarTheme: const AppBarTheme(
+                      color: Colors.white,
+                      iconTheme: IconThemeData(
                         color: Colors.cyan,
                       ),
-                      textSelectionTheme: TextSelectionThemeData(
-                        cursorColor: Colors.cyan,
-                        selectionColor: Colors.cyan,
-                        selectionHandleColor: Colors.cyan,
+                      titleTextStyle: TextStyle(
+                        color: Colors.cyan,
                       ),
-                      cupertinoOverrideTheme: CupertinoThemeData(
-                        primaryColor: Colors.cyan,
-                      ),
-                      outlinedButtonTheme: OutlinedButtonThemeData(
-                        style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(
-                            Size(150.0, 60.0),
-                          ),
-                          side: MaterialStateProperty.resolveWith(
-                            (Set<MaterialState> state) {
-                              if (state.contains(MaterialState.disabled)) {
-                                return BorderSide(
-                                  color: Colors.grey,
-                                );
-                              }
+                    ),
+                    iconTheme: const IconThemeData(
+                      color: Colors.cyan,
+                    ),
+                    textSelectionTheme: TextSelectionThemeData(
+                      cursorColor: Colors.cyan,
+                      selectionColor: Colors.cyan,
+                      selectionHandleColor: Colors.cyan,
+                    ),
+                    cupertinoOverrideTheme: CupertinoThemeData(
+                      primaryColor: Colors.cyan,
+                    ),
+                    outlinedButtonTheme: OutlinedButtonThemeData(
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                          Size(150.0, 60.0),
+                        ),
+                        side: MaterialStateProperty.resolveWith(
+                          (Set<MaterialState> state) {
+                            if (state.contains(MaterialState.disabled)) {
                               return BorderSide(
-                                color: Colors.cyan,
+                                color: Colors.grey,
                               );
-                            },
+                            }
+                            return BorderSide(
+                              color: Colors.cyan,
+                            );
+                          },
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          textStyle: MaterialStateProperty.resolveWith(
-                            (Set<MaterialState> state) {
-                              if (state.contains(MaterialState.disabled)) {
-                                return Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      color: Colors.grey,
-                                    );
-                              }
+                        ),
+                        textStyle: MaterialStateProperty.resolveWith(
+                          (Set<MaterialState> state) {
+                            if (state.contains(MaterialState.disabled)) {
                               return Theme.of(context)
                                   .textTheme
                                   .labelLarge
                                   ?.copyWith(
-                                    color: Colors.cyan,
+                                    color: Colors.grey,
                                   );
-                            },
-                          ),
-                        ),
-                      ),
-                      textButtonTheme: TextButtonThemeData(
-                        style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(
-                            Theme.of(context).textTheme.labelLarge?.copyWith(
+                            }
+                            return Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
                                   color: Colors.cyan,
-                                ),
-                          ),
+                                );
+                          },
                         ),
                       ),
-                      textTheme: TextTheme(
-                        displayMedium: TextStyle(
+                    ),
+                    textButtonTheme: TextButtonThemeData(
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(
+                          Theme.of(context).textTheme.labelLarge?.copyWith(
+                                color: Colors.cyan,
+                              ),
+                        ),
+                      ),
+                    ),
+                    textTheme: TextTheme(
+                      displayMedium: TextStyle(
                         fontSize: 24.0,
-                          color: Colors.black,
-                        ),
-                        headlineSmall: TextStyle(
+                        color: Colors.black,
+                      ),
+                      headlineSmall: TextStyle(
                         fontSize: 20.0,
-                          color: Colors.black,
-                        ),
-                        bodyMedium: TextStyle(
+                        color: Colors.black,
+                      ),
+                      bodyMedium: TextStyle(
                         fontSize: 18.0,
-                          color: Colors.black,
-                        ),
-                        titleMedium: TextStyle(
+                        color: Colors.black,
+                      ),
+                      titleMedium: TextStyle(
                         fontSize: 14.0,
-                          color: Colors.black,
-                        ),
+                        color: Colors.black,
                       ),
-                      inputDecorationTheme: InputDecorationTheme(
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
+                    ),
+                    inputDecorationTheme: InputDecorationTheme(
+                      labelStyle: TextStyle(
+                        color: Colors.black,
                       ),
-                      colorScheme: ColorScheme.fromSwatch(
-                        primarySwatch: Colors.cyan,
-                      )
-                          .copyWith(
-                            onPrimary: Colors.white,
-                          )
-                          .copyWith(background: Colors.white),
                     ),
-                    surveyProgressbarConfiguration: SurveyProgressConfiguration(
-                      backgroundColor: Colors.white,
-                    ),
-                  );
-                }
-                return CircularProgressIndicator.adaptive();
-              },
+                    colorScheme: ColorScheme.fromSwatch(
+                      primarySwatch: Colors.cyan,
+                    )
+                        .copyWith(
+                          onPrimary: Colors.white,
+                        )
+                        .copyWith(background: Colors.white),
+                  ),
+                  surveyProgressbarConfiguration: SurveyProgressConfiguration(
+                    backgroundColor: Colors.white,
+                  ),
+                );
+              }
+              return CircularProgressIndicator.adaptive();
+            },
           ),
         ),
       ),
