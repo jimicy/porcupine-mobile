@@ -39,17 +39,6 @@
         "id": "3"
       },
       "type": "question",
-      "title": "How old are you?",
-      "answerFormat": {
-        "type": "integer",
-        "hint": "Please enter your age"
-      }
-    },
-    {
-      "stepIdentifier": {
-        "id": "4"
-      },
-      "type": "question",
       "title": "Preferred phone number to receive appointment updates and test results",
       "answerFormat": {
         "type": "text",
@@ -58,7 +47,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "5"
+        "id": "4"
       },
       "type": "question",
       "title": "What is the main reason you chose this clinic for care?",
@@ -94,7 +83,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "6"
+        "id": "5"
       },
       "type": "question",
       "title": "Do you have health insurance (choose only one)?",
@@ -130,7 +119,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "7"
+        "id": "6"
       },
       "type": "question",
       "title": "Would you be willing to use your health insurance for this visit?",
@@ -143,7 +132,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "8"
+        "id": "7"
       },
       "type": "question",
       "title": "If No, why not (choose all that apply)?",
@@ -175,7 +164,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "9"
+        "id": "8"
       },
       "type": "question",
       "title": "Do you any symptoms below?",
@@ -203,7 +192,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "10"
+        "id": "9"
       },
       "type": "question",
       "title": "When was your last STI check?",
@@ -235,7 +224,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "11"
+        "id": "10"
       },
       "type": "question",
       "title": "Number of partners since your last STI check",
@@ -246,7 +235,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "12"
+        "id": "11"
       },
       "type": "question",
       "title": "Has a sexual partner told you they have a sexually transmitted infection (STI)?",
@@ -259,7 +248,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "13"
+        "id": "12"
       },
       "type": "question",
       "title": "Do you use condoms with casual partners?",
@@ -283,7 +272,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "14"
+        "id": "13"
       },
       "type": "question",
       "title": "Are you taking PrEP (HIV prevention drug)?",
@@ -296,7 +285,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "15"
+        "id": "14"
       },
       "type": "question",
       "title": "Have you ever given oral sex?",
@@ -309,7 +298,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "16"
+        "id": "15"
       },
       "type": "question",
       "title": "Have you ever received anal sex?",
@@ -322,7 +311,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "17"
+        "id": "16"
       },
       "type": "question",
       "text": "Have you ever used needles to inject drugs or had a tattoo from an unlicensed source?",
@@ -335,7 +324,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "18"
+        "id": "17"
       },
       "type": "question",
       "text": "Has a previous partner ever injected drugs or had a tattoo from an unlicensed source?",
@@ -348,7 +337,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "19"
+        "id": "18"
       },
       "type": "question",
       "text": "Have you ever had a sexual encounter against your wishes or sexual abuse?",
@@ -361,7 +350,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "20"
+        "id": "19"
       },
       "type": "question",
       "text": "Have you experienced domestic violence (psychological/sexual/physical)?",
@@ -374,7 +363,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "21"
+        "id": "20"
       },
       "type": "question",
       "text": "If you have answered yes, would you like us to contact you to provide support?",
@@ -387,7 +376,7 @@
     },
     {
       "stepIdentifier": {
-        "id": "22"
+        "id": "21"
       },
       "type": "completion",
       "text": "Thanks for taking the survey, we will contact you soon!",

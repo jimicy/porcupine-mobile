@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:porcupine_app/Screens/Appointment/appointment.dart';
 import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
 import 'package:porcupine_app/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -51,7 +52,7 @@ class _MySurveyState extends State<MySurvey> {
                           answers[questionResult.id?.id ?? ''] =
                               questionResult.valueIdentifier;
 
-                          await Supabase.instance.client
+                          Supabase.instance.client
                               .from('survey_answers')
                               .insert({
                             'survey_id': surveyId,
@@ -68,7 +69,7 @@ class _MySurveyState extends State<MySurvey> {
                       }
                     }
 
-                    await Supabase.instance.client.from('surveys').upsert({
+                    Supabase.instance.client.from('surveys').upsert({
                       'id': surveyId,
                       'survey_answers': jsonEncode(answers)
                     });
@@ -78,7 +79,7 @@ class _MySurveyState extends State<MySurvey> {
                       MaterialPageRoute(
                         builder: (context) {
                           return const BottomNavigationBarExampleApp(
-                            firstTab: GetTested(),
+                            firstTab: Appointment(),
                           );
                         },
                       ),
