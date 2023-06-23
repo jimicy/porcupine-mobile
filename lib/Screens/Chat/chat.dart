@@ -265,7 +265,7 @@ I want you to act as a trusted advisor in sexual health and wellness. Based on y
           createdAt: DateTime.now().millisecondsSinceEpoch,
           id: const Uuid().v4(),
           text:
-              'My name is Porcupine Bot. I am here to help answer any questions you have about sexual health and STDs',
+              'My name is Porcupine. I am here to help answer any questions you have about sexual health and STDs',
         ),
         types.TextMessage(
           author: porcupineBot,
