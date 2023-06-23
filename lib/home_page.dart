@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:porcupine_app/Screens/Appointment/appointment.dart';
 import 'package:porcupine_app/Screens/Chat/chat.dart';
 import 'package:porcupine_app/Screens/Login/login_screen.dart';
 import 'package:porcupine_app/constants.dart';
@@ -42,7 +43,7 @@ class _BottomNavigationBarExampleState
     final List<Widget> _widgetOptions = <Widget>[
       widget.firstTab,
       ChatPage(),
-      LoginScreen(),
+      Appointment(),
     ];
 
     return Scaffold(
