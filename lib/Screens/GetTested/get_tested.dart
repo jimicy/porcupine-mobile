@@ -49,6 +49,7 @@ class _GetTestedState extends State<GetTested> {
                     padding: EdgeInsets.only(left: 10, bottom: 10),
                     child: Text("Find Nearby Provider",
                         style: TextStyle(
+                            color: Color.fromRGBO(131, 116, 165, 1),
                             fontSize: 16, fontWeight: FontWeight.bold))),
                 Row(
                   children: <Widget>[
@@ -57,7 +58,7 @@ class _GetTestedState extends State<GetTested> {
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
                           isDense: true,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           fillColor: Colors.white,
                           filled: true,
                           hintText: "Zip Code",
@@ -70,6 +71,13 @@ class _GetTestedState extends State<GetTested> {
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(40, 48),
+                        backgroundColor: Color.fromRGBO(131, 116, 165, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                      ),
                       icon: const Icon(Icons.filter_alt, size: 18),
                       label: const Text("Filters"),
                       onPressed: () {},
@@ -129,7 +137,11 @@ class _GetTestedState extends State<GetTested> {
                           const SizedBox(height: 20),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
-                            child: Text("Radiant Health Centers"),
+                            child: Text(
+                              "Radiant Health Centers",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                           ),
                           const SizedBox(height: 20),
                           Padding(
