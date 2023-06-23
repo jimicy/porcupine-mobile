@@ -32,7 +32,8 @@ class _ChatPageState extends State<ChatPage> {
     id: 'porcupine-bot',
     firstName: 'Porcupine',
     lastName: 'Bot',
-    imageUrl: 'https://i.pravatar.cc/150',
+    imageUrl:
+        'https://storage.googleapis.com/toucan-ai-dataset/chat_bot_icon.png',
   );
 
   @override
@@ -210,6 +211,10 @@ class _ChatPageState extends State<ChatPage> {
         OpenAI.instance.chat.createStream(
       model: "gpt-3.5-turbo-0613",
       messages: [
+        OpenAIChatCompletionChoiceMessageModel(
+            role: OpenAIChatMessageRole.system, content: '''
+I want you to act as a trusted advisor in sexual health and wellness. Based on your interest in preventing and managing sexually transmitted infections and diseases, I will provide you with up-to-date information, guidance, and resources. In our conversation, you can ask me questions about safe sexual practices, methods of protection, common symptoms and treatments of STIs/STDs, and strategies for maintaining overall sexual health. Feel free to seek advice on prevention techniques, recommended screenings, and maintaining healthy relationships. Together, let's explore the world of sexual health and wellness to ensure your well-being and the well-being of your partners.
+        '''),
         OpenAIChatCompletionChoiceMessageModel(
           content: message.text,
           role: OpenAIChatMessageRole.user,
