@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:porcupine_app/Screens/GetTested/get_tested.dart';
 import 'package:porcupine_app/home_page.dart';
+import 'package:porcupine_app/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:survey_kit/survey_kit.dart';
+import 'package:provider/provider.dart' as provider;
 
 class MySurvey2 extends StatefulWidget {
   @override
@@ -53,6 +55,9 @@ class _MySurvey2State extends State<MySurvey2> {
                         // });
                       }
                     }
+
+                    provider.Provider.of<UserNotifier>(context, listen: false)
+                        .setUserSurvey(answers);
 
                     Navigator.push(
                       context,

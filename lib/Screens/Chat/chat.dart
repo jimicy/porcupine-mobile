@@ -12,8 +12,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:porcupine_app/user_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dart_openai/dart_openai.dart';
+import 'package:provider/provider.dart' as provider;
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -196,6 +198,18 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
+  List<OpenAIChatCompletionChoiceMessageModel> _getMessagesContext() {
+    return _messages
+        .where((element) => element.type == types.MessageType.text)
+        .map((e) => OpenAIChatCompletionChoiceMessageModel(
+              role: e.author.id == _user.id
+                  ? OpenAIChatMessageRole.user
+                  : OpenAIChatMessageRole.assistant,
+              content: (e as types.TextMessage).text,
+            ))
+        .toList();
+  }
+
   void _handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
       author: _user,
@@ -206,20 +220,31 @@ class _ChatPageState extends State<ChatPage> {
 
     _addMessage(textMessage);
 
+    final gptMessages = [
+      OpenAIChatCompletionChoiceMessageModel(
+          role: OpenAIChatMessageRole.system, content: '''
+I want you to act as a trusted advisor in sexual health and wellness. Based on your interest in preventing and managing sexually transmitted infections and diseases, I will provide you with up-to-date information, guidance, and resources. In our conversation, you can ask me questions about safe sexual practices, methods of protection, common symptoms and treatments of STIs/STDs, and strategies for maintaining overall sexual health. Feel free to seek advice on prevention techniques, recommended screenings, and maintaining healthy relationships. Together, let's explore the world of sexual health and wellness to ensure your well-being and the well-being of your partners.
+        '''),
+      OpenAIChatCompletionChoiceMessageModel(
+        role: OpenAIChatMessageRole.user,
+        content: provider.Provider.of<UserNotifier>(context, listen: false)
+            .gptPromptContext,
+      ),
+      // ..._getMessagesContext(),
+      OpenAIChatCompletionChoiceMessageModel(
+        content: message.text,
+        role: OpenAIChatMessageRole.user,
+      ),
+    ];
+
+    // print('======gptMessages');
+    // print(gptMessages);
+
     // Wait for AI to respond;
     Stream<OpenAIStreamChatCompletionModel> chatStream =
         OpenAI.instance.chat.createStream(
       model: "gpt-3.5-turbo-0613",
-      messages: [
-        OpenAIChatCompletionChoiceMessageModel(
-            role: OpenAIChatMessageRole.system, content: '''
-I want you to act as a trusted advisor in sexual health and wellness. Based on your interest in preventing and managing sexually transmitted infections and diseases, I will provide you with up-to-date information, guidance, and resources. In our conversation, you can ask me questions about safe sexual practices, methods of protection, common symptoms and treatments of STIs/STDs, and strategies for maintaining overall sexual health. Feel free to seek advice on prevention techniques, recommended screenings, and maintaining healthy relationships. Together, let's explore the world of sexual health and wellness to ensure your well-being and the well-being of your partners.
-        '''),
-        OpenAIChatCompletionChoiceMessageModel(
-          content: message.text,
-          role: OpenAIChatMessageRole.user,
-        )
-      ],
+      messages: gptMessages,
     );
 
     bool addedAiReply = false;
